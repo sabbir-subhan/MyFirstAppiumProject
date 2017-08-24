@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-public class FirstAppiumTest {
+public class FirstAppiumTestSimulatorGoogleNexus9Android5_1 {
 
 	private static AndroidDriver<WebElement> driver;
 	Dimension size;
@@ -40,6 +40,92 @@ public class FirstAppiumTest {
 		}
 	}
 	
+	private void swipingDownVerticalByElementName(WebElement ele) throws InterruptedException {
+		  
+		boolean elementIsDisplayed=ele.isDisplayed();
+		System.out.println("WebElement is display :"+elementIsDisplayed);
+		int heightOfScreen=driver.manage().window().getSize().getHeight();
+		System.out.println("Height of the screen is "+heightOfScreen);
+		//int YCordinateOfElement=ele.getLocation().getY();
+		//System.out.println("Height (Y cordinate of the Element is) "+YCordinateOfElement);
+		int HeightofElement=ele.getSize().getHeight();
+		System.out.println("initial height size??"+HeightofElement);
+		
+		while(HeightofElement<=0)
+		{
+			Dimension dimensions = driver.manage().window().getSize();
+			Double screenHeightStart = dimensions.getHeight() * 0.8;
+			int scrollStart = screenHeightStart.intValue();
+			Double screenHeightEnd = dimensions.getHeight() * 0.2;
+			int scrollEnd = screenHeightEnd.intValue();
+			driver.swipe(0,scrollStart,0,scrollEnd,2000);
+			//get new YCordinate of Element after the swipe
+			HeightofElement=ele.getSize().getWidth();
+			System.out.println("height size after scrolling "+HeightofElement);
+			//System.out.println("Height (Y cordinate of the Element after swipe is "+YCordinateOfElement);
+		}
+		
+	}
+	
+	private void swipingUpVerticalByElementName(WebElement ele) throws InterruptedException {
+		  
+		boolean elementIsDisplayed=ele.isDisplayed();
+		System.out.println("WebElement is display :"+elementIsDisplayed);
+		int heightOfScreen=driver.manage().window().getSize().getHeight();
+		System.out.println("Height of the screen is "+heightOfScreen);
+		//int YCordinateOfElement=ele.getLocation().getY();
+		//System.out.println("Height (Y cordinate of the Element is) "+YCordinateOfElement);
+		int HeightofElement=ele.getSize().getHeight();
+		System.out.println("initial height size??"+HeightofElement);
+		
+		while(HeightofElement<=0)
+		{
+			//Get the Dimension of screen.
+			Dimension dimensions = driver.manage().window().getSize();
+			
+			//Find horizontal point where you wants to swipe. It is in middle of screen width.
+			int startx =dimensions.getWidth()/2;
+			
+			//Find scrollStartY point which is at bottom side of screen.
+			Double screenHeightStart = dimensions.getHeight() * 0.8;
+			int scrollStartY = screenHeightStart.intValue();
+			
+			 //Find scrollEndY point which is at top side of screen.
+			Double screenHeightEnd = dimensions.getHeight() * 0.2;
+			int scrollEndY = screenHeightEnd.intValue();
+			//Swipe from Bottom to Top.
+			driver.swipe(startx,scrollEndY,startx,scrollStartY,2000);
+			//get new YCordinate of Element after the swipe
+			//get new Height of Element after the swipe
+			HeightofElement=ele.getSize().getWidth();
+			System.out.println("size after scrolling "+HeightofElement);
+			//YCordinateOfElement=ele.getLocation().getY();
+			//System.out.println("Height (Y cordinate of the Element after swipe is "+YCordinateOfElement);
+		}
+		
+	}
+	
+	
+	private boolean swipeVerticalUpOrDown(WebElement ele) throws InterruptedException{
+		boolean elementIsDisplayed=ele.isDisplayed();
+		System.out.println("WebElement is display :"+elementIsDisplayed);
+		int heightOfScreen=driver.manage().window().getSize().getHeight();
+		System.out.println("Height of the screen is "+heightOfScreen);
+		int YCoOrdinateOfElement=ele.getLocation().getY();
+		System.out.println("Height (Y cordinate of the Element is) "+YCoOrdinateOfElement);
+		
+		//decide if Appium needs to swipe Up Or Down based element location's Y co-ordinate
+		//if Element's Y coordinate is greater than Height of screen, we need swipe down vertical
+		//otherwise swipe up vertical
+		boolean ShouldSwipeDown=false;
+		if(YCoOrdinateOfElement>heightOfScreen){
+			return ShouldSwipeDown=true;
+			} 
+		else {
+				return ShouldSwipeDown;			
+			}
+		}
+	
 	private void swipingVerticalToptoBotton() throws InterruptedException {
 		  //Get the size of screen.
 		  size = driver.manage().window().getSize();
@@ -60,36 +146,18 @@ public class FirstAppiumTest {
 	
 		 }
 	
-	private boolean swipeVerticalUpOrDown(WebElement ele) throws InterruptedException{
-		boolean elementIsDisplayed=ele.isDisplayed();
-		System.out.println("WebElement is display :"+elementIsDisplayed);
-		int heightOfScreen=driver.manage().window().getSize().getHeight();
-		System.out.println("Height of the screen is "+heightOfScreen);
-		int YCoOrdinateOfElement=ele.getLocation().getY();
-		System.out.println("Height (Y cordinate of the Element is) "+YCoOrdinateOfElement);
-		
-		//decide if Appium needs to swipe Up Or Down based element location's Y co-ordinate
-		//if Element's Y coordinate is greater than Height of screen, we need swipe down vertical
-		//otherwise swipe up vertical
-		boolean ShouldSwipeDown=false;
-		if(YCoOrdinateOfElement>heightOfScreen){
-			return ShouldSwipeDown=true;
-			} 
-		else {
-				return ShouldSwipeDown;			
-			}
-		}	
-		
-
 	private void swipingVerticalByElementName(WebElement ele) throws InterruptedException {
 		  
 		boolean elementIsDisplayed=ele.isDisplayed();
-		System.out.println("WebElement is display :"+elementIsDisplayed);
+		System.out.println(elementIsDisplayed);
 		int heightOfScreen=driver.manage().window().getSize().getHeight();
 		System.out.println("Height of the screen is "+heightOfScreen);
 		int YCordinateOfElement=ele.getLocation().getY();
-		System.out.println("Height (Y cordinate of the Element is) "+YCordinateOfElement);
-		
+		System.out.println("Height (Y cordinate of the Element is "+YCordinateOfElement);
+		//System.out.println(elementIsDisplayed);
+		//System.out.println(ele.getLocation());
+		//System.out.println("height: "+ ele.getSize().getHeight());
+		//System.out.println("Width: "+ ele.getSize().getWidth());
 		while(YCordinateOfElement>heightOfScreen)
 		{
 			Dimension dimensions = driver.manage().window().getSize();
@@ -107,6 +175,16 @@ public class FirstAppiumTest {
 		//System.out.println("Width: "+ ele.getSize().getWidth());
 		 }
 	
+	public void pressKey(int androidKeyCode){
+        try {
+            //AndroidDriver androidDriver = (AndroidDriver) appiumDriver;
+        	driver.pressKeyCode(androidKeyCode);
+            System.out.println("Key " + androidKeyCode + " clicked");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+	
 	  @BeforeClass
 	  
 	  public void setup() throws InterruptedException, MalformedURLException{
@@ -117,16 +195,17 @@ public class FirstAppiumTest {
 		  
 		  //setting up Appium
 		  DesiredCapabilities capabilities = new DesiredCapabilities();
-		  capabilities.setCapability("deviceName", "Galaxy S6");
+		  capabilities.setCapability("deviceName", "Google Nexsus 9");
 		  capabilities.setCapability("platformName", "Android");
-		  capabilities.setCapability("platformVersion", "5.1.1");
+		  capabilities.setCapability("platformVersion", "5.1");
 		  capabilities.setCapability("appPackage", "com.noggin.oca");
 		  capabilities.setCapability("appActivity", "com.noggin.oca.MainActivity");
-		  //capabilities.setCapability("automationName","uiautomator2");
+		  //capabilities.setCapability("autoWebview","true");
 		  
 		  driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		  //driver.context("NATIVE_APP");
 		  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		  Thread.sleep(12000);
+		  Thread.sleep(2000);
 		  
 		  
 	  }
@@ -135,39 +214,51 @@ public class FirstAppiumTest {
 	  public void test() throws Exception{
 		  //System.out.println(driver.getPageSource());
 		  //Click on OCA Icon need find better options
-		  WebDriverWait waitOCAICon = new WebDriverWait(driver, 30);
-		  WebElement OCAIcon=driver.findElement(By.xpath("//com.sec.android.app.launcher.views.HomeItemView[@text='OCA']"));
-		  waitOCAICon.until(ExpectedConditions.visibilityOf(OCAIcon));
+		 
+		  //Click on Home Screen
+		  WebElement Home=driver.findElementByAccessibilityId("Apps");
+		  Home.click();
+		  
+		  //Tap on OCA Icon
+		  WebElement OCAIcon=driver.findElementByAccessibilityId("OCA");
 		  OCAIcon.click();
+		  
 		  
 		  //OCA landing page
 			  //Click on login button
-		      System.out.println("Clicking on Login button");
-			  WebElement LoginButton=driver.findElementById("sessionMenu");
+			  WebElement LoginButton=driver.findElementByAccessibilityId(" LOGIN");
 			  LoginButton.click();
 		  //OCA Domain page
 			  //Enter Domain URL
-			  System.out.println("Enter OCA Domain");
-			  WebElement OCADomainTextBox=driver.findElement(By.id("sessionDomain"));
-			  OCADomainTextBox.sendKeys("https://im1.oca-test-stable-el7sec.lan.noggin.com.au");
+			  
+			  WebElement OCADomainTextBox=driver.findElementById("sessionDomain");
+			  OCADomainTextBox.sendKeys("https://bitnoiseqa.nogginoca.com");
 			  //Click on Submit
-			  System.out.println("Clicn on Submit button");
 			  WebElement OCADoamianSubmitButton=driver.findElementByAccessibilityId("Submit");
 			  OCADoamianSubmitButton.click();
 			  
 		 //OCA UserName/Password page
 			  //Enter UserName 
-			  WebElement UserNameTextBox=driver.findElement(By.id("sessionUsername"));
-			  UserNameTextBox.sendKeys("ssubhan");
+			  WebElement UserNameTextBox=driver.findElementByAccessibilityId("Username");
+			  UserNameTextBox.sendKeys("sabbir");
 			//Enter Password 
-			  WebElement PasswordTextBox=driver.findElement(By.id("sessionPassword"));
+			  WebElement PasswordTextBox=driver.findElementByAccessibilityId("Password");
 			  PasswordTextBox.sendKeys("123test");
 			  //hide the keyboard so Submit button is visible
 			  driver.hideKeyboard();
 			//Click on Submit
-			  WebElement OCAUserNamePasswordSubmitButton=driver.findElement(By.id("sessionSubmit"));
+			  WebElement OCAUserNamePasswordSubmitButton=driver.findElementByAccessibilityId("Submit");
 			  OCAUserNamePasswordSubmitButton.click();
-		//Should reach on Set Pin Page based on OCA settings
+			 
+		//Should reach T&C page
+			 
+			  Thread.sleep(5000);
+			  WebElement AcceptButton=driver.findElementByAccessibilityId("Accept");
+			  AcceptButton.click();
+			  			  
+			  
+		/*
+			  //Should reach on Set Pin Page based on OCA settings
 			  //now set the pin to 1234
 			  WebElement Num1PinButton=driver.findElement(By.id("pin1"));
 			  Num1PinButton.click();	
@@ -184,7 +275,9 @@ public class FirstAppiumTest {
 			  //Click on Submit button
 			  WebElement OCAPInSubmitButton=driver.findElement(By.id("sessionPINSubmit"));
 			  OCAPInSubmitButton.click();
+			
 		//should land on the OCA Dashboard page
+			 
 			  //Click yes on Notifications popup
 			  WebElement DashboardNotificationsYesButton=driver.findElementByAccessibilityId("Yes");
 			  DashboardNotificationsYesButton.click();
@@ -192,13 +285,20 @@ public class FirstAppiumTest {
 			  //scroll up and down in Dashboard page
 			  //this.swipingVertical();
 			  //click on HamburgerMenu
-			  this.clickHamburgerMenu();
+			  
+			    */
 			  
 			 
-		//should land on OCA Menu page
-			  //click on ABout button
+			//click on ABout button
 			  WebElement AboutButton=driver.findElement(By.id("aboutMenu"));
-			  swipingVerticalByElementName(AboutButton);
+			  //Check if Appium needs swipe up or down
+			  boolean swipeDownAboutMenu=this.swipeVerticalUpOrDown(AboutButton);
+			  if (swipeDownAboutMenu){
+			  this.swipingDownVerticalByElementName(AboutButton);
+			  }
+			  else{
+				  this.swipingUpVerticalByElementName(AboutButton);
+			  }
 			  AboutButton.click();
 			  
 		//go back to OCA Menu Page
@@ -207,9 +307,28 @@ public class FirstAppiumTest {
 			  //System.out.println(driver.getPageSource());
 			  //click on Event buttons
 			  WebElement EventButton=driver.findElement(By.id("emeMenu"));
+			  boolean swipeDownEvent=this.swipeVerticalUpOrDown(EventButton);
+			  if (swipeDownEvent){
+			  this.swipingDownVerticalByElementName(EventButton);
+			  }
+			  else{
+				  this.swipingUpVerticalByElementName(EventButton);
+			  }
 			  EventButton.click();
-			  this.swipingVerticalToptoBotton();
+			  //Enter a search Text and enter press enter 
+			  WebElement EventSearchTextBox=driver.findElement(By.id("emeSearch"));
+			  Thread.sleep(3000);
+			  EventSearchTextBox.clear();
+			  EventSearchTextBox.sendKeys("appium");
+			  //press enter key
+			  driver.pressKeyCode(AndroidKeyCode.ENTER);
+			  Thread.sleep(5000);
+              //go back to OCA Menu Page
+			  
+			  driver.pressKeyCode(AndroidKeyCode.BACK);
+			  Thread.sleep(5000);
 			 
+		/*	 
 		//go back to OCA Menu Page
 			  driver.pressKeyCode(AndroidKeyCode.BACK);
 			
@@ -243,6 +362,7 @@ public class FirstAppiumTest {
 			  driver.pressKeyCode(AndroidKeyCode.BACK);
 						  			  
 		  Thread.sleep(30000);
+		  */
 	  }
 	  
 	  @AfterClass
