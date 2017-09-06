@@ -16,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-public class FirstAppiumTestSimulatorSamSumsungGalaxy7Android6 {
+public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 
 	private static AndroidDriver<WebElement> driver;
 	Dimension size;
