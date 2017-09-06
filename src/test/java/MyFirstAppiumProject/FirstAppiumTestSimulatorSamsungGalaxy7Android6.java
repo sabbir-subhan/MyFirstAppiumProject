@@ -1,6 +1,8 @@
 package MyFirstAppiumProject;
 
 import org.testng.annotations.Test;
+
+import AutomnationSupportClasses.captureScreenShot;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidKeyCode;
 
@@ -20,6 +22,7 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 
 	private static AndroidDriver<WebElement> driver;
 	Dimension size;
+	String TestCaseName = this.getClass().getName();
 	
 	private void clickHamburgerMenu(){
 		  //click on HamburgerMenu
@@ -189,7 +192,7 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 	  public void setup() throws InterruptedException, MalformedURLException{
 		  
 		 //Prints Out the Test Case Name in the console for debugging purpose
-		  String TestCaseName = this.getClass().getName();
+		  
 		  System.out.println("TEST CASE RUNNING :"+ TestCaseName);
 		  
 		  //setting up Appium
@@ -211,6 +214,10 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 	  
 	  @Test
 	  public void test() throws Exception{
+		  //Create an object to take screen shot
+		  
+		  captureScreenShot captureMobileScreen=new captureScreenShot();
+		  
 		  //System.out.println(driver.getPageSource());
 		  //Click on OCA Icon need find better options
 		 
@@ -226,6 +233,7 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 		  //OCA landing page
 			  //Click on login button
 			  WebElement LoginButton=driver.findElementByAccessibilityId(" LOGIN");
+			  captureMobileScreen.takeScreenShot(driver, TestCaseName);//take screenshot of the mobile screen
 			  LoginButton.click();
 		  //OCA Domain page
 			  //Enter Domain URL
@@ -299,8 +307,9 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 			  else{
 				  this.swipingUpVerticalByElementName(AboutButton);
 			  }
+			  captureMobileScreen.takeScreenShot(driver, TestCaseName);
 			  AboutButton.click();
-			  
+			  captureMobileScreen.takeScreenShot(driver, TestCaseName);
 		//go back to OCA Menu Page
 			  
 			  driver.pressKeyCode(AndroidKeyCode.BACK);
@@ -386,7 +395,7 @@ public class FirstAppiumTestSimulatorSamsungGalaxy7Android6 {
 		//click on HamburgerMenu and go back to OCA Menu Page
 			  this.clickHamburgerMenu();
 						  			  
-		  Thread.sleep(10000);
+		  Thread.sleep(5000);
 		 
 	  }
 	  
